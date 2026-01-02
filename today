@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notion Today Widget</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+
+    .wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 8px;
+      font-size: 16px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap" id="today">--/--/--/-</div>
+
+  <script>
+    function pad2(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function renderToday() {
+      const d = new Date();
+      const yy = pad2(d.getFullYear() % 100);
+      const mm = pad2(d.getMonth() + 1);
+      const dd = pad2(d.getDate());
+      const days = ["일", "월", "화", "수", "목", "금", "토"];
+      const dow = days[d.getDay()];
+
+      document.getElementById("today").textContent =
+        `${yy}/${mm}/${dd}/${dow}`;
+    }
+
+    renderToday();
+  </script>
+</body>
+</html>
