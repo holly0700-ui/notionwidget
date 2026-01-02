@@ -1,57 +1,46 @@
-<html> 
+<!doctype html>
+<html lang="ko">
 <head>
-    <title>Greeting Message</title> 
-    <style>
-#lbl {
-    font-family: monospace;
-    font-size: xx-large;
-    color: #626262;
-    padding: 5px;
-    border: 1px solid #ececec;
-    text-align: center;
-    line-height: 1.5;
-    height:85%
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
 
-}
-#date{
-    font-size:large;
-}
-body{
-    background-color: aliceblue;
-}
-    </style>
+    #lbl {
+      font-size: 16px;
+      line-height: 1;
+      padding: 4px 6px;
+      white-space: nowrap;
+      color: #626262;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="lbl"></div>
+  <div id="lbl"></div>
+
+  <script>
+    function pad2(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    const today = new Date();
+
+    const yy = pad2(today.getFullYear() % 100);
+    const mm = pad2(today.getMonth() + 1);
+    const dd = pad2(today.getDate());
+
+    const weekday = ["일", "월", "화", "수", "목", "금", "토"];
+    const dow = weekday[today.getDay()];
+
+    document.getElementById("lbl").textContent =
+      `${yy}/${mm}/${dd}/${dow}`;
+  </script>
 </body>
-
-<script>
-    var weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
-
-    
-    var today = new Date();
-    var hrs = today.getHours();
-    var dayOfWeek = weekday[today.getDay()];
-    var date = dayOfWeek+" " + today.getDate() + "/" +(today.getMonth()+1) +'/'+today.getFullYear()  ;
-
-    var greet;
-
-    if (hrs < 12)
-        greet = 'Good Morning  ';
-    else if (hrs >= 12 && hrs <= 17)
-        greet = 'Good Afternoon ';
-    else if (hrs >= 17 && hrs <= 24)
-        greet = 'Good Evening  ';
-
-    document.getElementById('lbl').innerHTML =
-        greet+=`<div id="date"> It's ${date}</div>`;
-</script> 
 </html>
