@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notion Today Widget</title>
 
   <style>
+    /* ✅ 노션 임베드용: 여백 최소 + 투명 배경 */
     html, body {
       margin: 0;
       padding: 0;
@@ -12,35 +14,58 @@
       font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
     }
 
-    #lbl {
-      font-size: 16px;
+    /* ✅ 탭(임베드) 안에서 꽉 차 보이게: 패딩 적당히 + 좌측 정렬 */
+    .wrap {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* 세로 가운데 */
+      align-items: flex-start; /* 왼쪽 정렬 */
+      gap: 10px;
+    }
+
+    /* TODAY 라벨 */
+    .label {
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      font-size: 22px;   /* 크게 */
       line-height: 1;
-      padding: 4px 6px;
-      white-space: nowrap;
-      color: #626262;
+    }
+
+    /* 1월 2일 금요일 */
+    .date {
+      font-weight: 700;
+      font-size: 28px;   /* 더 크게 */
+      line-height: 1.1;
+    }
+
+    /* 작은 화면/탭에서 너무 커지면 자동으로 살짝 줄이기 */
+    @media (max-width: 360px) {
+      .label { font-size: 18px; }
+      .date  { font-size: 24px; }
+      .wrap  { padding: 12px 14px; }
     }
   </style>
 </head>
 
 <body>
-  <div id="lbl"></div>
+  <div class="wrap">
+    <div class="label">TODAY</div>
+    <div class="date" id="dateText">--월 --일 ----요일</div>
+  </div>
 
   <script>
-    function pad2(n) {
-      return String(n).padStart(2, "0");
-    }
+    const d = new Date();
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    const weekday = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"][d.getDay()];
 
-    const today = new Date();
-
-    const yy = pad2(today.getFullYear() % 100);
-    const mm = pad2(today.getMonth() + 1);
-    const dd = pad2(today.getDate());
-
-    const weekday = ["일", "월", "화", "수", "목", "금", "토"];
-    const dow = weekday[today.getDay()];
-
-    document.getElementById("lbl").textContent =
-      `${yy}/${mm}/${dd}/${dow}`;
+    // "1월 2일 금요일"
+    document.getElementById("dateText").textContent =
+      `${month}월 ${day}일 ${weekday}`;
   </script>
 </body>
 </html>
